@@ -13,10 +13,7 @@ export async function getBooking(req: AuthenticatedRequest, res: Response) {
       room: booking.Room
     });
   } catch (error) {
-    if (error.name === "NotFoundError") {
-      return res.sendStatus(httpStatus.NOT_FOUND);
-    }
-    return res.sendStatus(httpStatus.PAYMENT_REQUIRED);
+    return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
 
@@ -35,17 +32,17 @@ export async function postBooking(req: AuthenticatedRequest, res: Response) {
       bookingId: booking.id
     });
   } catch (error) {
-    if (error.name === "NotFoundError") {
-      return res.sendStatus(httpStatus.NOT_FOUND);
+    if (error.name === "CannotBookingError") {
+      return res.sendStatus(httpStatus.FORBIDDEN);
     }
-    return res.sendStatus(httpStatus.PAYMENT_REQUIRED);
+    return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
 
 export async function putBooking(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
 
-  const { bookingId } = req.params;
+  const bookingId = Number(req.params.bookingId);
   
   if (!bookingId) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
@@ -63,9 +60,9 @@ export async function putBooking(req: AuthenticatedRequest, res: Response) {
       bookingId: booking.id
     });
   } catch (error) {
-    if (error.name === "NotFoundError") {
-      return res.sendStatus(httpStatus.NOT_FOUND);
+    if (error.name === "CannotBookingError") {
+      return res.sendStatus(httpStatus.FORBIDDEN);
     }
-    return res.sendStatus(httpStatus.PAYMENT_REQUIRED);
+    return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }

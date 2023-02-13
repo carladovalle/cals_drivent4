@@ -3,7 +3,6 @@ import roomRepository from "@/repositories/room-repository";
 import enrollmentRepository from "@/repositories/enrollment-repository";
 import ticketRepository from "@/repositories/ticket-repository";
 import { notFoundError } from "@/errors";
-import { cannotListHotelsError } from "@/errors/cannot-list-hotels-error";
 import { cannotBookingError } from "@/errors/cannot-booking-error";
 
 async function checksEnrollmentAndTicket(userId: number) {
